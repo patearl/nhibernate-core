@@ -165,6 +165,7 @@
     <Compile Include="CollectionTest\IdBagFixture.cs" />
     <Compile Include="CollectionTest\NullableValueTypeElementMapFixture.cs" />
     <Compile Include="CollectionTest\Parent.cs" />
+    <Compile Include="CommonQuery\CommonQueryBasicFixture.cs" />
     <Compile Include="Component\Basic\ComponentTest.cs" />
     <Compile Include="Component\Basic\Employee.cs" />
     <Compile Include="Component\Basic\OptionalComponent.cs" />

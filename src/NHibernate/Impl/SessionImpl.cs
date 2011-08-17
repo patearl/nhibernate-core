@@ -9,6 +9,7 @@ using Iesi.Collections;
 
 using NHibernate.AdoNet;
 using NHibernate.Collection;
+using NHibernate.CommonQueryModel.Loader;
 using NHibernate.Criterion;
 using NHibernate.Engine;
 using NHibernate.Engine.Query;
@@ -1920,20 +1921,22 @@ namespace NHibernate.Impl
 				string[] implementors = Factory.GetImplementors(criteria.EntityOrClassName);
 				int size = implementors.Length;
 
-				CriteriaLoader[] loaders = new CriteriaLoader[size];
-				ISet<string> spaces = new HashedSet<string>();
+                //CriteriaLoader[] loaders = new CriteriaLoader[size];
+                CommonQueryLoader[] loaders = new CommonQueryLoader[size];
+                ISet<string> spaces = new HashedSet<string>();
 
 				for (int i = 0; i < size; i++)
 				{
-					loaders[i] = new CriteriaLoader(
-						GetOuterJoinLoadable(implementors[i]),
-						Factory,
-						criteria,
-						implementors[i],
-						enabledFilters
-						);
+                    //loaders[i] = new CriteriaLoader(
+                    //    GetOuterJoinLoadable(implementors[i]),
+                    //    Factory,
+                    //    criteria,
+                    //    implementors[i],
+                    //    enabledFilters
+                    //    );
+				    loaders[i] = new CommonQueryLoader(Factory, implementors[i]);
 
-					spaces.AddAll(loaders[i].QuerySpaces);
+					//spaces.AddAll(loaders[i].QuerySpaces);
 				}
 
 				AutoFlushIfRequired(spaces);

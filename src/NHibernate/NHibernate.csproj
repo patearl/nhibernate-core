@@ -126,6 +126,14 @@
     <Compile Include="Cfg\Settings.cs" />
     <Compile Include="Cfg\SettingsFactory.cs" />
     <Compile Include="Collection\IPersistentCollection.cs" />
+    <Compile Include="CommonQueryModel\Ast\CommonQuery.cs" />
+    <Compile Include="CommonQueryModel\Ast\Comparison.cs" />
+    <Compile Include="CommonQueryModel\Ast\IBooleanExpression.cs" />
+    <Compile Include="CommonQueryModel\Ast\IRowSet.cs" />
+    <Compile Include="CommonQueryModel\Ast\Property.cs" />
+    <Compile Include="CommonQueryModel\Ast\SingleTablePersistentClassRowSet.cs" />
+    <Compile Include="CommonQueryModel\Criteria\CriteriaQueryToCommonQueryTransformer.cs" />
+    <Compile Include="CommonQueryModel\Loader\CommonQueryLoader.cs" />
     <Compile Include="Connection\ConnectionProvider.cs" />
     <Compile Include="Connection\ConnectionProviderFactory.cs" />
     <Compile Include="Connection\DriverConnectionProvider.cs" />
