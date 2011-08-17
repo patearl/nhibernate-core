@@ -11,6 +11,7 @@ using NHibernate.Dialect;
 using NHibernate.Exceptions;
 using NHibernate.Hql;
 using NHibernate.Linq.Functions;
+using NHibernate.Linq.Visitors;
 using NHibernate.Transaction;
 using NHibernate.Util;
 
@@ -53,6 +54,7 @@ namespace NHibernate.Cfg
 			settings.Dialect = dialect;
 
 			settings.LinqToHqlGeneratorsRegistry = LinqToHqlGeneratorsRegistryFactory.CreateGeneratorsRegistry(properties);
+		    settings.LinqQueryParser = QueryParserFactory.CreateQueryParser(properties);
 
 			#region SQL Exception converter
 

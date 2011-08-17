@@ -63,7 +63,7 @@ namespace NHibernate.Linq
                 var requiredHqlParameters = new List<NamedParameterDescriptor>();
 
                 // TODO - can we cache any of this? 
-                var queryModel = NhRelinqQueryParser.Parse(_expression);
+                var queryModel = sessionFactory.Settings.LinqQueryParser.GetParsedQuery(_expression);
 
                 ExpressionToHqlTranslationResults = QueryModelVisitor.GenerateHqlQuery(queryModel,
                                                                                        new VisitorParameters(

@@ -15,47 +15,21 @@ using Remotion.Linq.Parsing.Structure.NodeTypeProviders;
 
 namespace NHibernate.Linq
 {
-    public static class NhRelinqQueryParser
-    {
-    	private static readonly QueryParser _queryParser;
-
-        static NhRelinqQueryParser()
-        {
-        	var nodeTypeProvider = new NHibernateNodeTypeProvider();
-
-			var transformerRegistry = ExpressionTransformerRegistry.CreateDefault();
-			// Register custom expression transformers here:
-			// transformerRegistry.Register (new MyExpressionTransformer());
-
-			var processor = ExpressionTreeParser.CreateDefaultProcessor(transformerRegistry);
-			// Add custom processors here:
-			// processor.InnerProcessors.Add (new MyExpressionTreeProcessor());
-
-			var expressionTreeParser = new ExpressionTreeParser(nodeTypeProvider, processor);
-
-			_queryParser = new QueryParser(expressionTreeParser);			
-        }
-
-        public static QueryModel Parse(Expression expression)
-        {
-            return _queryParser.GetParsedQuery(expression);
-        }
-    }
-
 	public class NHibernateNodeTypeProvider : INodeTypeProvider
 	{
 		private INodeTypeProvider defaultNodeTypeProvider;
+	    private MethodInfoBasedNodeTypeRegistry methodInfoBasedNodeTypeRegistry;
 
 		public NHibernateNodeTypeProvider()
 		{
-			var methodInfoRegistry = new MethodInfoBasedNodeTypeRegistry();
+            methodInfoBasedNodeTypeRegistry = new MethodInfoBasedNodeTypeRegistry();
 
-			methodInfoRegistry.Register(new[] { typeof(EagerFetchingExtensionMethods).GetMethod("Fetch") }, typeof(FetchOneExpressionNode));
-			methodInfoRegistry.Register(new[] { typeof(EagerFetchingExtensionMethods).GetMethod("FetchMany") }, typeof(FetchManyExpressionNode));
-			methodInfoRegistry.Register(new[] { typeof(EagerFetchingExtensionMethods).GetMethod("ThenFetch") }, typeof(ThenFetchOneExpressionNode));
-			methodInfoRegistry.Register(new[] { typeof(EagerFetchingExtensionMethods).GetMethod("ThenFetchMany") }, typeof(ThenFetchManyExpressionNode));
+            methodInfoBasedNodeTypeRegistry.Register(new[] { typeof(EagerFetchingExtensionMethods).GetMethod("Fetch") }, typeof(FetchOneExpressionNode));
+            methodInfoBasedNodeTypeRegistry.Register(new[] { typeof(EagerFetchingExtensionMethods).GetMethod("FetchMany") }, typeof(FetchManyExpressionNode));
+            methodInfoBasedNodeTypeRegistry.Register(new[] { typeof(EagerFetchingExtensionMethods).GetMethod("ThenFetch") }, typeof(ThenFetchOneExpressionNode));
+            methodInfoBasedNodeTypeRegistry.Register(new[] { typeof(EagerFetchingExtensionMethods).GetMethod("ThenFetchMany") }, typeof(ThenFetchManyExpressionNode));
 
-			methodInfoRegistry.Register(
+            methodInfoBasedNodeTypeRegistry.Register(
 				new[]
                     {
                         typeof(LinqExtensionMethods).GetMethod("Cacheable"),
@@ -64,9 +38,14 @@ namespace NHibernate.Linq
                     }, typeof(CacheableExpressionNode));
 
 			var nodeTypeProvider = ExpressionTreeParser.CreateDefaultNodeTypeProvider();
-			nodeTypeProvider.InnerProviders.Add(methodInfoRegistry);
+            nodeTypeProvider.InnerProviders.Add(methodInfoBasedNodeTypeRegistry);
 			defaultNodeTypeProvider = nodeTypeProvider;
 		}
+
+        protected void Register(IEnumerable<MethodInfo> methods, System.Type nodeType)
+        {
+            methodInfoBasedNodeTypeRegistry.Register(methods, nodeType);
+        }
 
 		public bool IsRegistered(MethodInfo method)
 		{

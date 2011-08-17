@@ -8,6 +8,7 @@ using NHibernate.Exceptions;
 using NHibernate.Hql;
 using NHibernate.Linq.Functions;
 using NHibernate.Transaction;
+using Remotion.Linq.Parsing.Structure;
 
 namespace NHibernate.Cfg
 {
@@ -124,6 +125,9 @@ namespace NHibernate.Cfg
 		/// Get the registry to provide Hql-Generators for known properties/methods.
 		/// </summary>
 		public ILinqToHqlGeneratorsRegistry LinqToHqlGeneratorsRegistry { get; internal set; }
+
+        // This is set up from the LinqNodeTypeProvider property.
+        internal QueryParser LinqQueryParser { get; set; }
 
 		#endregion
 	}

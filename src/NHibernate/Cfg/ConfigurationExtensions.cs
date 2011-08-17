@@ -5,6 +5,7 @@ using NHibernate.Engine;
 using NHibernate.Hql;
 using NHibernate.Linq.Functions;
 using NHibernate.Util;
+using Remotion.Linq.Parsing.Structure;
 
 namespace NHibernate.Cfg
 {
@@ -51,6 +52,12 @@ namespace NHibernate.Cfg
 			configuration.SetProperty(Environment.LinqToHqlGeneratorsRegistry, typeof(TLinqToHqlGeneratorsRegistry).AssemblyQualifiedName);
 			return configuration;
 		}
+
+        public static Configuration LinqNodeTypeProvider<TLinqNodeTypeProvider>(this Configuration configuration) where TLinqNodeTypeProvider : INodeTypeProvider
+        {
+            configuration.SetProperty(Environment.LinqNodeTypeProvider, typeof(TLinqNodeTypeProvider).AssemblyQualifiedName);
+            return configuration;
+        }
 
 		public static Configuration CurrentSessionContext<TCurrentSessionContext>(this Configuration configuration) where TCurrentSessionContext : ICurrentSessionContext
 		{

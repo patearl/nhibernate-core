@@ -273,12 +273,15 @@
     <Compile Include="LazyInitializationException.cs" />
     <Compile Include="Linq\Clauses\NhJoinClause.cs" />
     <Compile Include="Linq\Functions\DictionaryGenerator.cs" />
+    <Compile Include="Linq\NHibernateNodeTypeProvider.cs" />
     <Compile Include="Linq\ReWriters\AddJoinsReWriter.cs" />
     <Compile Include="Linq\ReWriters\MoveOrderByToEndRewriter.cs" />
     <Compile Include="Linq\ReWriters\ResultOperatorRewriter.cs" />
     <Compile Include="Linq\ReWriters\ResultOperatorRewriterResult.cs" />
     <Compile Include="Linq\Visitors\AbstractJoinDetector.cs" />
+    <Compile Include="Linq\Visitors\NodeTypeProviderFactory.cs" />
     <Compile Include="Linq\Visitors\PossibleValueSet.cs" />
+    <Compile Include="Linq\Visitors\QueryParserFactory.cs" />
     <Compile Include="Linq\Visitors\ResultOperatorProcessors\ProcessAggregateFromSeed.cs" />
     <Compile Include="Linq\Visitors\SelectAndOrderByJoinDetector.cs" />
     <Compile Include="Linq\Visitors\WhereJoinDetector.cs" />
@@ -912,7 +915,6 @@
     <Compile Include="Linq\LinqExtensionMethodAttribute.cs" />
     <Compile Include="Linq\TypeHelperExtensionMethods.cs" />
     <Compile Include="Linq\Visitors\NameUnNamedParameters.cs" />
-    <Compile Include="Linq\NhRelinqQueryParser.cs" />
     <Compile Include="Linq\Expressions\NhAggregatedExpression.cs" />
     <Compile Include="Linq\Expressions\NhAverageExpression.cs" />
     <Compile Include="Linq\Expressions\NhCountExpression.cs" />

@@ -161,6 +161,7 @@ namespace NHibernate.Cfg
 		public const string CollectionTypeFactoryClass = "collectiontype.factory_class";
 		
 		public const string LinqToHqlGeneratorsRegistry = "linqtohql.generatorsregistry";
+        public const string LinqNodeTypeProvider = "linq.nodetypeprovider";
 
 		/// <summary> Enable ordering of insert statements for the purpose of more effecient batching.</summary>
 		public const string OrderInserts = "order_inserts";
