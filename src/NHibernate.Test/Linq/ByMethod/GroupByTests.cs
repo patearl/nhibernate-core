@@ -49,6 +49,15 @@ namespace NHibernate.Test.Linq.ByMethod
 				o => o.Employee);
 		}
 
+        [Test]
+        public void GroupAndThenOrderByKey()
+        {
+            var customers = db.Customers.GroupBy(c => c.ContactTitle).OrderBy(g => g.Key).ToList();
+            Assert.That(customers.Count(), Is.EqualTo(89));
+            Assert.That(customers.Sum(g => g.Count()), Is.EqualTo(830));
+            CheckGrouping(customers, c => c.ContactTitle);
+        }
+
 		private void CheckGrouping<TKey, TElement>(IEnumerable<IGrouping<TKey, TElement>> groupedItems, Func<TElement, TKey> groupBy)
 		{
 			HashSet<object> used = new HashSet<object>();
